@@ -1,18 +1,17 @@
 {
-  "name": "parcel-project-template",
-  "version": "1.1.0",
-  "description": "",
+  "name": "goit-js-hw-09",
+  "version": "1.0.0",
+  "description": "hw 9",
   "main": "index.js",
-  "homepage": "https://mihail228350df.github.io/goit-js-hw-09",
+  "homepage": "https://mihail228350df.github.com/goit-js-hw-09",
   "scripts": {
-    "dev": "parcel src/*.html",
+    "dev": "parcel src/*.html --port 6850",
     "build": "parcel build src/*.html --public-url /goit-js-hw-09/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mihail228350df/goit-js-hw-09.git"
   },
-  "keywords": [],
   "author": "Mihail Sorokin <mihailsorokin@gmail.com>",
   "license": "ISC",
   "bugs": {
@@ -27,6 +26,6 @@
   },
   "dependencies": {
     "flatpickr": "^4.6.9",
-    "notiflix": "^3.2.4"
+    "notiflix": "^3.2.2"
   }
 }
