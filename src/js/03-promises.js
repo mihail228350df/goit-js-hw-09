@@ -1,48 +1,39 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
+  form: document.querySelector('form.form'),
   delay: document.querySelector('input[name="delay"]'),
   step: document.querySelector('input[name="step"]'),
   amount: document.querySelector('input[name="amount"]'),
-  form: document.querySelector('.form'),
 };
 
-refs.form.addEventListener('submit', onFormSubmit);
+refs.form.addEventListener('submit', promiseGenerator);
 
-function onFormSubmit(e) {
-  e.preventDefault();
-  const data = {
-    amount: parseInt(refs.amount.value),
-    step: parseInt(refs.step.value),
-    delay: parseInt(refs.delay.value),
-  };
-  callPromiseCreation(data);
-}
+function promiseGenerator(event) {
+  event.preventDefault();
+  let delayValue = Number(refs.delay.value);
 
-function callPromiseCreation({ amount, step, delay }) {
-  let calculatedDelay = delay;
-  for (let index = 1; index <= amount; index += 1) {
-    createPromise(index, calculatedDelay)
+  for (let positionValue = 1; positionValue <= refs.amount.value; positionValue += 1) {
+    createPromise(positionValue, delayValue)
       .then(({ position, delay }) => {
-        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
-        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+        Notify.failure(`Rejected promise ${position} in ${delay}ms`);
       });
-    calculatedDelay += step;
-  }
-}
+    delayValue += Number(refs.step.value);
+  };
+};
 
 function createPromise(position, delay) {
-  const shouldResolve = Math.random() > 0.3;
-
   return new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3;
     setTimeout(() => {
       if (shouldResolve) {
-        resolve({ position: position, delay: delay });
-      } else {
-        reject({ position: position, delay: delay });
-      }
+        resolve({position, delay})
+      };
+      reject({position, delay})
     }, delay);
-  });
-}
+  }
+  );
+};
